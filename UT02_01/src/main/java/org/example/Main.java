@@ -21,24 +21,46 @@ public class Main {
             System.out.println("6. Salir");
             System.out.print("Seleccione opción: ");
 
+            while (!sc.hasNextInt()) {
+                System.out.printf("Introduzca del 1 al 6: ");
+                sc.next();
+            }
             opciones = sc.nextInt();
             sc.nextLine();
 
             switch (opciones) {
                 case 1:
-                    System.out.printf("Introduce nombre:");
-                    String nombre = sc.nextLine();
-                    System.out.printf("Introduce edad:");
-                    int edad = sc.nextInt();
-                    System.out.printf("Introduce nota media:");
-                    double notaMedia = sc.nextDouble();;
-                    System.out.printf("¿Está matriculado? (true/false):");
-                    boolean matriculado = sc.nextBoolean();
-                    estudiantes.add(new Estudiante(nombre, edad, notaMedia, matriculado));
-                    System.out.printf("Estudiante añadido correctamente.");
+                        System.out.printf("Introduce nombre: ");
+                        String nombre = sc.nextLine();
+
+                        boolean existe = false;
+                        for (Estudiante e : estudiantes) {
+                            if (e.getNombre().equalsIgnoreCase(nombre.trim())) {
+                                existe = true;
+                                break;
+                            }
+                        }
+                        if (existe) {
+                            System.out.println("Ya existe un estudiante con ese nombre.");
+                            break;
+                        }
+
+                        System.out.printf("Introduce edad: ");
+                        int edad = sc.nextInt();
+
+                        System.out.printf("Introduce nota media: ");
+                        double notaMedia = sc.nextDouble();
+
+                        System.out.printf("¿Está matriculado? (true/false): ");
+                        boolean matriculado = sc.nextBoolean();
+                        sc.nextLine();
+
+                        Estudiante nuevo = new Estudiante(nombre, edad, notaMedia, matriculado);
+                        estudiantes.add(nuevo);
+                        System.out.printf("Estudiante añadido correctamente.");
                     break;
                 case 2:
-                    System.out.printf("Lista de estudiantes:");
+                    System.out.printf("Lista de estudiantes: \n");
                     if (estudiantes.isEmpty()) {
                         System.out.printf("No hay estudiantes registrados.");
                     } else {
@@ -49,7 +71,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.printf("Intruduce el nombre a buscar: ");
-                    String buscar = sc.nextLine();
+                    String buscar = sc.nextLine().trim();
                     boolean encontrado = false;
                     for (Estudiante e : estudiantes) {
                         if (e.getNombre().equalsIgnoreCase(buscar)) {
