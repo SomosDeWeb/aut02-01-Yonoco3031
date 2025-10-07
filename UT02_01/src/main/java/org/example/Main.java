@@ -26,11 +26,11 @@ public class Main {
 
             switch (opciones) {
                 case 1:
-                    System.out.println("Introduce nombre:");
+                    System.out.printf("Introduce nombre:");
                     String nombre = sc.nextLine();
-                    System.out.println("Introduce edad:");
+                    System.out.printf("Introduce edad:");
                     int edad = sc.nextInt();
-                    System.out.println("Introduce nota media:");
+                    System.out.printf("Introduce nota media:");
                     double notaMedia = sc.nextDouble();;
                     System.out.printf("¿Está matriculado? (true/false):");
                     boolean matriculado = sc.nextBoolean();
@@ -61,6 +61,36 @@ public class Main {
                         System.out.printf("No se encontro ningún estudiante con ese nombre.");
                     }
                     break;
+                case 4:
+                    if (estudiantes.isEmpty()) {
+                        System.out.printf("No hay estudiantes registrados.");
+                    } else {
+                        double suma = 0;
+                        for (Estudiante e : estudiantes) {
+                            suma += e.getNotaMedia();
+                        }
+                        double media = suma / estudiantes.size();
+                        System.out.printf("Nota media general: " + media);
+                    }
+                    break;
+                case 5:
+                    if (estudiantes.isEmpty()) {
+                        System.out.printf("No hay estudiantes registrados.");
+                    } else {
+                        Estudiante mejor = estudiantes.get(0);
+                        for (Estudiante e : estudiantes) {
+                            if (e.getNotaMedia() > mejor.getNotaMedia()) {
+                                mejor = e;
+                            }
+                        }
+                        System.out.printf("Mejor estudiante: " + mejor);
+                    }
+                    break;
+                case 6:
+                    System.out.printf("Has salido del programa.");
+                    break;
+                default:
+                    System.out.printf("Opción no válida. Intente de nuevo.");
             }
         } while (opciones != 6);
     }
